@@ -33,7 +33,7 @@ export default function HomePage() {
             {/* Welcome Section */}
             <div className="text-center mb-12">
               <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
-                Welcome to BookTube
+                Welcome to BookTube by satish
               </h1>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 Discover, read, and share amazing books with our community of readers
