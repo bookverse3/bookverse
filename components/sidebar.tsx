@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
   Home, 
-  PlaySquare,
   Compass,
   Heart, 
   Clock, 
@@ -16,7 +15,6 @@ import {
   History,
   ThumbsUp,
   Download,
-  Bookmark,
   User,
   HelpCircle,
   Flag,
@@ -26,9 +24,11 @@ import {
   Trophy,
   Newspaper,
   Shirt,
-  Podcast
+  Podcast,
+  X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 const navigationItems = [
   { href: '/', label: 'Home', icon: Home, section: 'main' },
@@ -63,14 +63,6 @@ const exploreItems = [
   { href: '/podcasts', label: 'Podcasts', icon: Podcast, section: 'explore' },
 ];
 
-const libraryItems = [
-  { href: '/library', label: 'Library', icon: Library, section: 'library' },
-  { href: '/history', label: 'History', icon: History, section: 'library' },
-  { href: '/reading-list', label: 'Watch later', icon: Clock, section: 'library' },
-  { href: '/favorites', label: 'Favorites', icon: Heart, section: 'library' },
-  { href: '/downloads', label: 'Downloads', icon: Download, section: 'library' },
-];
-
 const bottomItems = [
   { href: '/settings', label: 'Settings', icon: Settings, section: 'bottom' },
   { href: '/report', label: 'Report history', icon: Flag, section: 'bottom' },
@@ -101,6 +93,12 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
           ? 'bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-400' 
           : 'text-gray-700 dark:text-gray-300'
       )}
+      onClick={() => {
+        // Close sidebar on mobile when clicking a link
+        if (window.innerWidth < 1024) {
+          onToggle();
+        }
+      }}
     >
       <Icon className="h-5 w-5 flex-shrink-0" />
       <span className={cn('transition-opacity duration-200', !isOpen && 'lg:opacity-0 lg:hidden')}>
@@ -121,6 +119,11 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
         'hover:bg-gray-100 dark:hover:bg-gray-800',
         'text-gray-700 dark:text-gray-300'
       )}
+      onClick={() => {
+        if (window.innerWidth < 1024) {
+          onToggle();
+        }
+      }}
     >
       <img src={avatar} alt={label} className="h-6 w-6 rounded-full flex-shrink-0" />
       <span className={cn('transition-opacity duration-200 truncate', !isOpen && 'lg:opacity-0 lg:hidden')}>
@@ -130,86 +133,163 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
   );
 
   return (
-    <aside className={cn(
-      'fixed left-0 top-16 h-[calc(100vh-4rem)] bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300 z-30',
-      'lg:relative lg:top-0 lg:h-screen lg:border-t-0',
-      isOpen ? 'w-64' : 'w-16 lg:w-20',
-      'lg:block',
-      !isOpen && 'hidden lg:block'
-    )}>
-      <div className="flex flex-col h-full">
-        <div className="flex-1 overflow-y-auto">
-          <div className="p-4 space-y-1">
-            {navigationItems.map((item) => (
+    <>
+      {/* Desktop Sidebar */}
+      <aside className={cn(
+        'fixed left-0 top-16 h-[calc(100vh-4rem)] bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300 z-30',
+        'hidden lg:block',
+        isOpen ? 'w-64' : 'w-16'
+      )}>
+        <div className="flex flex-col h-full">
+          <div className="flex-1 overflow-y-auto">
+            <div className="p-4 space-y-1">
+              {navigationItems.map((item) => (
+                <NavItem key={item.href} {...item} />
+              ))}
+            </div>
+
+            {isOpen && (
+              <>
+                <div className="border-t border-gray-200 dark:border-gray-800 my-2" />
+
+                <div className="p-4">
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">
+                    You
+                  </h3>
+                  <div className="space-y-1">
+                    {youItems.map((item) => (
+                      <NavItem key={item.href} {...item} />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-200 dark:border-gray-800 my-2" />
+
+                <div className="p-4">
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">
+                    Subscriptions
+                  </h3>
+                  <div className="space-y-1">
+                    {subscriptionsItems.map((item) => (
+                      <ChannelItem key={item.href} href={item.href} label={item.label} avatar={item.avatar} />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-200 dark:border-gray-800 my-2" />
+
+                <div className="p-4">
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">
+                    Explore
+                  </h3>
+                  <div className="space-y-1">
+                    {exploreItems.map((item) => (
+                      <NavItem key={item.href} {...item} />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-200 dark:border-gray-800 my-2" />
+
+                <div className="p-4">
+                  <div className="space-y-1">
+                    {bottomItems.slice(0, 2).map((item) => (
+                      <NavItem key={item.href} {...item} />
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+
+          {isOpen && (
+            <div className="border-t border-gray-200 dark:border-gray-800 p-4">
+              {bottomItems.slice(2).map((item) => (
+                <NavItem key={item.href} {...item} />
+              ))}
+            </div>
+          )}
+        </div>
+      </aside>
+
+      {/* Mobile Sidebar */}
+      <aside className={cn(
+        'fixed left-0 top-16 h-[calc(100vh-4rem)] bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300 z-30',
+        'lg:hidden w-64',
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      )}>
+        <div className="flex flex-col h-full">
+          {/* Close button for mobile */}
+          <div className="flex justify-end p-4 lg:hidden">
+            <Button variant="ghost" size="icon" onClick={onToggle}>
+              <X className="h-5 w-5" />
+            </Button>
+          </div>
+
+          <div className="flex-1 overflow-y-auto">
+            <div className="p-4 space-y-1">
+              {navigationItems.map((item) => (
+                <NavItem key={item.href} {...item} />
+              ))}
+            </div>
+
+            <div className="border-t border-gray-200 dark:border-gray-800 my-2" />
+
+            <div className="p-4">
+              <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">
+                You
+              </h3>
+              <div className="space-y-1">
+                {youItems.map((item) => (
+                  <NavItem key={item.href} {...item} />
+                ))}
+              </div>
+            </div>
+
+            <div className="border-t border-gray-200 dark:border-gray-800 my-2" />
+
+            <div className="p-4">
+              <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">
+                Subscriptions
+              </h3>
+              <div className="space-y-1">
+                {subscriptionsItems.map((item) => (
+                  <ChannelItem key={item.href} href={item.href} label={item.label} avatar={item.avatar} />
+                ))}
+              </div>
+            </div>
+
+            <div className="border-t border-gray-200 dark:border-gray-800 my-2" />
+
+            <div className="p-4">
+              <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">
+                Explore
+              </h3>
+              <div className="space-y-1">
+                {exploreItems.map((item) => (
+                  <NavItem key={item.href} {...item} />
+                ))}
+              </div>
+            </div>
+
+            <div className="border-t border-gray-200 dark:border-gray-800 my-2" />
+
+            <div className="p-4">
+              <div className="space-y-1">
+                {bottomItems.slice(0, 2).map((item) => (
+                  <NavItem key={item.href} {...item} />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-200 dark:border-gray-800 p-4">
+            {bottomItems.slice(2).map((item) => (
               <NavItem key={item.href} {...item} />
             ))}
           </div>
-
-          <div className="border-t border-gray-200 dark:border-gray-800 my-2" />
-
-          <div className="p-4">
-            <h3 className={cn(
-              'text-sm font-medium text-gray-900 dark:text-white mb-3',
-              !isOpen && 'lg:hidden'
-            )}>
-              You
-            </h3>
-            <div className="space-y-1">
-              {youItems.map((item) => (
-                <NavItem key={item.href} {...item} />
-              ))}
-            </div>
-          </div>
-
-          <div className="border-t border-gray-200 dark:border-gray-800 my-2" />
-
-          <div className="p-4">
-            <h3 className={cn(
-              'text-sm font-medium text-gray-900 dark:text-white mb-3',
-              !isOpen && 'lg:hidden'
-            )}>
-              Subscriptions
-            </h3>
-            <div className="space-y-1">
-              {subscriptionsItems.map((item) => (
-                <ChannelItem key={item.href} href={item.href} label={item.label} avatar={item.avatar} />
-              ))}
-            </div>
-          </div>
-
-          <div className="border-t border-gray-200 dark:border-gray-800 my-2" />
-
-          <div className="p-4">
-            <h3 className={cn(
-              'text-sm font-medium text-gray-900 dark:text-white mb-3',
-              !isOpen && 'lg:hidden'
-            )}>
-              Explore
-            </h3>
-            <div className="space-y-1">
-              {exploreItems.map((item) => (
-                <NavItem key={item.href} {...item} />
-              ))}
-            </div>
-          </div>
-
-          <div className="border-t border-gray-200 dark:border-gray-800 my-2" />
-
-          <div className="p-4">
-            <div className="space-y-1">
-              {bottomItems.slice(0, 2).map((item) => (
-                <NavItem key={item.href} {...item} />
-              ))}
-            </div>
-          </div>
         </div>
-
-        <div className="border-t border-gray-200 dark:border-gray-800 p-4">
-          {bottomItems.slice(2).map((item) => (
-            <NavItem key={item.href} {...item} />
-          ))}
-        </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 }

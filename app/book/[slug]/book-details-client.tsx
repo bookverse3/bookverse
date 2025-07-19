@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Navbar } from '@/components/navbar';
 import { Sidebar } from '@/components/sidebar';
-import { PageFlipReader } from '@/components/page-flip-reader';
+import { HTML5PageFlipReader } from '@/components/html5-page-flip-reader';
 import { CommentsSection } from '@/components/comments-section';
 import { UpNextSidebar } from '@/components/up-next-sidebar';
 import { Book } from '@/lib/data';
@@ -67,13 +67,13 @@ export default function BookDetailsClient({ book }: BookDetailsClientProps) {
         <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
         
         <main className={`flex-1 transition-all duration-300 ${
-          sidebarOpen ? 'lg:ml-64' : 'lg:ml-20'
+          sidebarOpen ? 'lg:ml-64' : 'lg:ml-16'
         }`}>
           <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 p-4 lg:p-6">
             {/* Main Content */}
             <div className="flex-1 space-y-4 lg:space-y-6">
               {/* Book Reader */}
-              <PageFlipReader title={book.title} progress={book.progress || 0} />
+              <HTML5PageFlipReader title={book.title} progress={book.progress || 0} />
 
               {/* Book Info */}
               <div className="bg-white dark:bg-gray-800 rounded-lg lg:rounded-xl p-4 lg:p-6 shadow-sm">

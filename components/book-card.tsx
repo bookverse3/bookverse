@@ -15,11 +15,9 @@ export function BookCard({ book, size = 'default' }: BookCardProps) {
   
   return (
     <Link href={`/book/${book.id}`} className="group block">
-      <div className={`bg-white dark:bg-gray-800 rounded-lg lg:rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden ${
-        isSmall ? 'max-w-sm' : ''
-      }`}>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
         <div className="relative">
-          <div className={`relative ${isSmall ? 'aspect-[3/2]' : 'aspect-video'} overflow-hidden`}>
+          <div className="relative aspect-video overflow-hidden">
             <Image
               src={book.cover}
               alt={book.title}
@@ -32,7 +30,7 @@ export function BookCard({ book, size = 'default' }: BookCardProps) {
             <div className="absolute bottom-2 right-2">
               <Badge className="bg-black/80 text-white text-xs px-2 py-1">
                 <Clock className="h-3 w-3 mr-1" />
-                {book.readingTime} min read
+                {book.readingTime} min
               </Badge>
             </div>
 
@@ -45,31 +43,29 @@ export function BookCard({ book, size = 'default' }: BookCardProps) {
           </div>
         </div>
 
-        <div className={`p-3 lg:p-4 ${isSmall ? 'p-3' : ''}`}>
-          <h3 className={`font-semibold text-gray-900 dark:text-white line-clamp-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors ${
-            isSmall ? 'text-sm mb-2' : 'text-sm lg:text-base mb-2 lg:mb-3'
-          }`}>
+        <div className="p-3">
+          <h3 className="font-semibold text-sm text-gray-900 dark:text-white line-clamp-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors mb-2">
             {book.title}
           </h3>
 
-          <div className="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
-            <Avatar className={isSmall ? 'h-6 w-6' : 'h-8 w-8'}>
+          <div className="flex items-center gap-2 mb-2">
+            <Avatar className="h-6 w-6">
               <AvatarImage src={book.channelAvatar} />
               <AvatarFallback className="text-xs">
                 {book.channel.slice(0, 2)}
               </AvatarFallback>
             </Avatar>
-            <div>
-              <p className={`font-medium text-gray-900 dark:text-white ${isSmall ? 'text-xs' : 'text-sm'}`}>
+            <div className="min-w-0 flex-1">
+              <p className="font-medium text-xs text-gray-900 dark:text-white truncate">
                 {book.channel}
               </p>
-              <p className={`text-gray-500 dark:text-gray-400 ${isSmall ? 'text-xs' : 'text-xs'}`}>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {book.subscribers} subscribers
               </p>
             </div>
           </div>
 
-          <div className={`flex items-center gap-2 lg:gap-4 text-gray-500 dark:text-gray-400 ${isSmall ? 'text-xs' : 'text-xs lg:text-sm'}`}>
+          <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
             <div className="flex items-center gap-1">
               <Eye className="h-3 w-3" />
               <span>{book.views}</span>
