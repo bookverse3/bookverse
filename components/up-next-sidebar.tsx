@@ -35,12 +35,12 @@ export function UpNextSidebar() {
             </div>
             
             <div className="flex-1 min-w-0">
-              <h4 className="font-medium text-sm text-gray-900 dark:text-white line-clamp-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors mb-1">
+              <h4 className="font-medium text-xs lg:text-sm text-gray-900 dark:text-white line-clamp-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors mb-1">
                 {book.title}
               </h4>
               
-              <div className="flex items-center gap-2 mb-2">
-                <Avatar className="h-5 w-5">
+              <div className="flex items-center gap-1 lg:gap-2 mb-1 lg:mb-2">
+                <Avatar className="h-4 w-4 lg:h-5 lg:w-5">
                   <AvatarImage src={book.channelAvatar} />
                   <AvatarFallback className="text-xs">
                     {book.channel.slice(0, 2)}
@@ -51,7 +51,7 @@ export function UpNextSidebar() {
                 </span>
               </div>
               
-              <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-1 lg:gap-3 text-xs text-gray-500 dark:text-gray-400">
                 <div className="flex items-center gap-1">
                   <Eye className="h-3 w-3" />
                   <span>{book.views}</span>
@@ -60,7 +60,7 @@ export function UpNextSidebar() {
                 <span>{formatDate(book.uploadDate)}</span>
               </div>
               
-              <div className="mt-2">
+              <div className="mt-1 lg:mt-2">
                 <span className={`inline-block text-xs px-2 py-1 rounded-full ${getCategoryColor(book.category)}`}>
                   {book.category}
                 </span>
