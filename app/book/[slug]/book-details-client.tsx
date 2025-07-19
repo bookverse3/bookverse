@@ -61,13 +61,13 @@ export default function BookDetailsClient({ book }: BookDetailsClientProps) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar onMenuToggle={toggleSidebar} sidebarOpen={sidebarOpen} />
+      <Navbar onMenuToggle={toggleSidebar} />
       
       <div className="flex pt-16">
         <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
         
         <main className={`flex-1 transition-all duration-300 ${
-          sidebarOpen ? 'ml-60' : 'ml-16'
+          sidebarOpen ? 'lg:ml-64' : 'lg:ml-16'
         }`}>
           <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 p-4 lg:p-6">
             {/* Main Content */}
@@ -193,6 +193,13 @@ export default function BookDetailsClient({ book }: BookDetailsClientProps) {
         </main>
       </div>
 
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
+          onClick={toggleSidebar}
+        />
+      )}
     </div>
   );
 }

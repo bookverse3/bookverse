@@ -11,10 +11,9 @@ import { UploadModal } from '@/components/upload-modal';
 
 interface NavbarProps {
   onMenuToggle: () => void;
-  sidebarOpen: boolean;
 }
 
-export function Navbar({ onMenuToggle, sidebarOpen }: NavbarProps) {
+export function Navbar({ onMenuToggle }: NavbarProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
 
@@ -33,7 +32,7 @@ export function Navbar({ onMenuToggle, sidebarOpen }: NavbarProps) {
             variant="ghost"
             size="icon"
             onClick={onMenuToggle}
-            className="hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full"
+            className="lg:hidden"
           >
             <Menu className="h-5 w-5" />
           </Button>
