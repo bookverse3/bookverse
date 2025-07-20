@@ -15,11 +15,11 @@ export function BookCard({ book, size = 'default' }: BookCardProps) {
   
   return (
     <Link href={`/book/${book.id}`} className="group block">
-      <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden ${
+      <div className={`bg-white dark:bg-gray-800 rounded-lg lg:rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden ${
         isSmall ? 'max-w-sm' : ''
       }`}>
         <div className="relative">
-          <div className={`relative ${isSmall ? 'aspect-[3/2]' : 'aspect-[4/3]'} overflow-hidden`}>
+          <div className={`relative ${isSmall ? 'aspect-[3/2]' : 'aspect-video'} overflow-hidden`}>
             <Image
               src={book.cover}
               alt={book.title}
@@ -45,14 +45,14 @@ export function BookCard({ book, size = 'default' }: BookCardProps) {
           </div>
         </div>
 
-        <div className={`p-4 ${isSmall ? 'p-3' : ''}`}>
+        <div className={`p-3 lg:p-4 ${isSmall ? 'p-3' : ''}`}>
           <h3 className={`font-semibold text-gray-900 dark:text-white line-clamp-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors ${
-            isSmall ? 'text-sm mb-2' : 'text-base mb-3'
+            isSmall ? 'text-sm mb-2' : 'text-sm lg:text-base mb-2 lg:mb-3'
           }`}>
             {book.title}
           </h3>
 
-          <div className="flex items-center gap-3 mb-3">
+          <div className="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
             <Avatar className={isSmall ? 'h-6 w-6' : 'h-8 w-8'}>
               <AvatarImage src={book.channelAvatar} />
               <AvatarFallback className="text-xs">
@@ -69,7 +69,7 @@ export function BookCard({ book, size = 'default' }: BookCardProps) {
             </div>
           </div>
 
-          <div className={`flex items-center gap-4 text-gray-500 dark:text-gray-400 ${isSmall ? 'text-xs' : 'text-sm'}`}>
+          <div className={`flex items-center gap-2 lg:gap-4 text-gray-500 dark:text-gray-400 ${isSmall ? 'text-xs' : 'text-xs lg:text-sm'}`}>
             <div className="flex items-center gap-1">
               <Eye className="h-3 w-3" />
               <span>{book.views}</span>

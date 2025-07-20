@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { UploadModal } from '@/components/upload-modal';
 
 interface NavbarProps {
   onMenuToggle: () => void;
@@ -14,6 +15,7 @@ interface NavbarProps {
 
 export function Navbar({ onMenuToggle }: NavbarProps) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +73,7 @@ export function Navbar({ onMenuToggle }: NavbarProps) {
         {/* Right section */}
         <div className="flex items-center gap-3">
           <Button
-            variant="default"
+            onClick={() => setUploadModalOpen(true)}
             size="sm"
             className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
           >
@@ -94,6 +96,11 @@ export function Navbar({ onMenuToggle }: NavbarProps) {
           </Avatar>
         </div>
       </div>
+      
+      <UploadModal 
+        isOpen={uploadModalOpen} 
+        onClose={() => setUploadModalOpen(false)} 
+      />
     </header>
   );
 }
